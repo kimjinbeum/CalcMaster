@@ -1,11 +1,17 @@
 body {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Align items to the top */
     height: 100vh;
     background-color: #f0f0f0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
+    padding-top: 50px; /* Add some padding at the top */
+}
+
+.calculator-container {
+    display: flex;
+    gap: 20px;
 }
 
 .calculator {
@@ -34,7 +40,7 @@ body {
 
 .buttons {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(6, 1fr); /* Adjusted for new layout */
     gap: 10px;
 }
 
@@ -72,4 +78,55 @@ body {
 
 .fn:hover {
     background-color: #31b0d5;
+}
+
+/* History Panel Styles */
+.history-panel {
+    width: 250px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.history-panel h3 {
+    margin-top: 0;
+    text-align: center;
+    color: #333;
+}
+
+#history-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+    height: 350px;
+    overflow-y: auto;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+#history-list li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+#history-list li:last-child {
+    border-bottom: none;
+}
+
+#clear-history {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#clear-history:hover {
+    background-color: #c9302c;
 }
