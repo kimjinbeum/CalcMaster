@@ -15,10 +15,18 @@
 </head>
 <body>
     <div class="page-wrapper">
+        <!-- Mobile Header -->
+        <header class="mobile-header">
+            <button class="hamburger-btn" id="hamburger-btn" aria-label="메뉴 열기">☰</button>
+            <span class="mobile-title">AllInOne</span>
+        </header>
+        <div class="gnb-overlay" id="gnb-overlay"></div>
+
         <!-- GNB (Global Navigation Bar) -->
-        <nav class="gnb">
+        <nav class="gnb" id="gnb">
             <div class="gnb-header">
                 <h1>AllInOne</h1>
+                <button class="gnb-close-btn" id="gnb-close-btn" aria-label="메뉴 닫기">✕</button>
             </div>
             <ul class="gnb-menu">
                 <li><button class="gnb-btn active" onclick="openMainMenu(event, 'server-time-menu')">⏰ 서버 시간</button></li>
@@ -51,7 +59,7 @@
                     <p class="time-desc" id="server-time-desc">수강신청, 티켓팅, 예매에 필수적인 정확한 서버 시간을 확인하세요.</p>
                 </div>
 
-                <div class="alarm-section" style="max-width: 800px; margin: 0 auto; background: var(--panel-bg); color: var(--panel-text-color); padding: 30px; border-radius: 10px; margin-top: 20px; box-shadow: 0 0 20px rgba(0,0,0,0.1);">
+                <div class="alarm-section">
                     <h4>⏰ 예약 알람</h4>
                     <div class="alarm-input-row">
                         <input type="time" id="alarm-time-input" step="1">
@@ -354,6 +362,28 @@
     <script>
         // --- Common Initialization and Global Functions ---
         document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Navigation
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const gnbCloseBtn = document.getElementById('gnb-close-btn');
+            const gnb = document.getElementById('gnb');
+            const gnbOverlay = document.getElementById('gnb-overlay');
+
+            function openGnb() {
+                gnb.classList.add('open');
+                gnbOverlay.classList.add('visible');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeGnb() {
+                gnb.classList.remove('open');
+                gnbOverlay.classList.remove('visible');
+                document.body.style.overflow = '';
+            }
+
+            if (hamburgerBtn) hamburgerBtn.addEventListener('click', openGnb);
+            if (gnbCloseBtn) gnbCloseBtn.addEventListener('click', closeGnb);
+            if (gnbOverlay) gnbOverlay.addEventListener('click', closeGnb);
+
             // Theme Manager
             const themeToggle = document.getElementById('theme-toggle');
             const savedTheme = localStorage.getItem('theme');
@@ -393,6 +423,15 @@
             document.getElementById(menuName).style.display = "block";
             document.getElementById(menuName).classList.add("active");
             evt.currentTarget.classList.add("active");
+
+            // Close mobile nav on menu selection
+            if (window.innerWidth <= 900) {
+                const gnb = document.getElementById('gnb');
+                const gnbOverlay = document.getElementById('gnb-overlay');
+                if (gnb) gnb.classList.remove('open');
+                if (gnbOverlay) gnbOverlay.classList.remove('visible');
+                document.body.style.overflow = '';
+            }
         }
 
         function openTab(evt, tabName) {
